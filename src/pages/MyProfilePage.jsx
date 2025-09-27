@@ -18,7 +18,7 @@ export default function MyProfilePage() {
   const student = data?.activeStudent || {}
   const updateStudent = data?.updateStudent
 
-  // split name
+  // Personal details state
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
@@ -32,15 +32,15 @@ export default function MyProfilePage() {
   const [emergencyName, setEmergencyName] = useState('')
   const [emergencyPhone, setEmergencyPhone] = useState('')
 
-  // academic
-  const [course, setCourse] = useState('Bachelor of Technology (B.Tech)')
-  const [branch, setBranch] = useState('Computer Science Engineering')
-  const [academicYear, setAcademicYear] = useState('2024-25')
-  const [currentSemester, setCurrentSemester] = useState(student.semester || '')
-  const [currentCgpa, setCurrentCgpa] = useState(student.stats?.cgpa ?? '')
+  // Academic details state
+  const [course, setCourse] = useState('')
+  const [branch, setBranch] = useState('')
+  const [academicYear, setAcademicYear] = useState('')
+  const [currentSemester, setCurrentSemester] = useState('')
+  const [currentCgpa, setCurrentCgpa] = useState('')
   const [admissionDate, setAdmissionDate] = useState('')
   const [expectedGraduation, setExpectedGraduation] = useState('')
-  const [prevEducationLevel, setPrevEducationLevel] = useState("12th Standard / HSC")
+  const [prevEducationLevel, setPrevEducationLevel] = useState('')
   const [prevInstitution, setPrevInstitution] = useState('')
   const [prevPercentage, setPrevPercentage] = useState('')
   const [passingYear, setPassingYear] = useState('')
@@ -55,8 +55,26 @@ export default function MyProfilePage() {
     }
     setEmail(student.email || '')
     setPhone(student.phone || '')
+    setDob(student.dob || '')
+    setGender(student.gender || '')
+    setAddress(student.address || '')
+    setCity(student.city || '')
+    setStateName(student.state || '')
+    setPincode(student.pincode || '')
+    setEmergencyName(student.emergencyName || '')
+    setEmergencyPhone(student.emergencyPhone || '')
+
+    setCourse(student.course || 'Bachelor of Technology (B.Tech)')
+    setBranch(student.branch || 'Computer Science Engineering')
+    setAcademicYear(student.academicYear || '2024-25')
     setCurrentSemester(student.semester || '')
     setCurrentCgpa(student.stats?.cgpa ?? '')
+    setAdmissionDate(student.admissionDate || '')
+    setExpectedGraduation(student.expectedGraduation || '')
+    setPrevEducationLevel(student.prevEducationLevel || '12th Standard / HSC')
+    setPrevInstitution(student.prevInstitution || '')
+    setPrevPercentage(student.prevPercentage || '')
+    setPassingYear(student.passingYear || '')
   }, [student])
 
   function savePersonal() {
@@ -76,14 +94,12 @@ export default function MyProfilePage() {
         <div className="flex gap-2">
           <TabButton name="Personal Details" active={activeTab === 'Personal Details'} onClick={() => setActiveTab('Personal Details')} />
           <TabButton name="Academic Info" active={activeTab === 'Academic Info'} onClick={() => setActiveTab('Academic Info')} />
-          {/* Portfolio and Privacy removed per request */}
         </div>
       </div>
 
       {activeTab === 'Personal Details' && (
         <div>
           <h3 className="text-lg font-semibold mb-4">Personal Details</h3>
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="text-sm text-gray-600">First Name *</label>
@@ -93,17 +109,15 @@ export default function MyProfilePage() {
               <label className="text-sm text-gray-600">Last Name *</label>
               <input className="w-full mt-1 px-3 py-2 rounded bg-gray-50" value={lastName} onChange={(e) => setLastName(e.target.value)} />
             </div>
-
             <div>
               <label className="text-sm text-gray-600">Email Address</label>
-              <input className="w-full mt-1 px-3 py-2 rounded bg-gray-50" value={email} onChange={(e) => setEmail(e.target.value)} />
+              <input className="w-full mt-1 px-3 py-2 rounded bg-gray-50" value={email} readOnly />
               <div className="text-xs text-gray-400 mt-1">Email cannot be changed</div>
             </div>
             <div>
               <label className="text-sm text-gray-600">Phone Number *</label>
               <input className="w-full mt-1 px-3 py-2 rounded bg-gray-50" value={phone} onChange={(e) => setPhone(e.target.value)} />
             </div>
-
             <div>
               <label className="text-sm text-gray-600">Date of Birth *</label>
               <input type="date" className="w-full mt-1 px-3 py-2 rounded bg-gray-50" value={dob} onChange={(e) => setDob(e.target.value)} />
@@ -117,12 +131,10 @@ export default function MyProfilePage() {
                 <option>Other</option>
               </select>
             </div>
-
             <div className="md:col-span-2">
               <label className="text-sm text-gray-600">Address *</label>
               <input className="w-full mt-1 px-3 py-2 rounded bg-gray-50" value={address} onChange={(e) => setAddress(e.target.value)} />
             </div>
-
             <div>
               <label className="text-sm text-gray-600">City *</label>
               <input className="w-full mt-1 px-3 py-2 rounded bg-gray-50" value={city} onChange={(e) => setCity(e.target.value)} />
@@ -131,12 +143,10 @@ export default function MyProfilePage() {
               <label className="text-sm text-gray-600">State *</label>
               <input className="w-full mt-1 px-3 py-2 rounded bg-gray-50" value={stateName} onChange={(e) => setStateName(e.target.value)} />
             </div>
-
             <div>
               <label className="text-sm text-gray-600">Pincode *</label>
               <input className="w-full mt-1 px-3 py-2 rounded bg-gray-50" value={pincode} onChange={(e) => setPincode(e.target.value)} />
             </div>
-
             <div className="md:col-span-2">
               <h4 className="font-semibold mt-4">Emergency Contact</h4>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
@@ -151,7 +161,6 @@ export default function MyProfilePage() {
               </div>
             </div>
           </div>
-
           <div className="mt-6 text-right">
             <button onClick={savePersonal} className="bg-indigo-600 text-white px-4 py-2 rounded">Save Personal Details</button>
           </div>
@@ -161,7 +170,6 @@ export default function MyProfilePage() {
       {activeTab === 'Academic Info' && (
         <div>
           <h3 className="text-lg font-semibold mb-4">Academic Information</h3>
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label className="text-sm text-gray-600">Student ID</label>
@@ -175,7 +183,6 @@ export default function MyProfilePage() {
                 <option>Bachelor of Science (B.Sc)</option>
               </select>
             </div>
-
             <div>
               <label className="text-sm text-gray-600">Branch/Specialization *</label>
               <input className="w-full mt-1 px-3 py-2 rounded bg-gray-50" value={branch} onChange={(e) => setBranch(e.target.value)} />
@@ -193,7 +200,6 @@ export default function MyProfilePage() {
                 <option>Semester 8</option>
               </select>
             </div>
-
             <div>
               <label className="text-sm text-gray-600">Academic Year *</label>
               <select className="w-full mt-1 px-3 py-2 rounded bg-gray-50" value={academicYear} onChange={(e) => setAcademicYear(e.target.value)}>
@@ -205,7 +211,6 @@ export default function MyProfilePage() {
               <label className="text-sm text-gray-600">Current CGPA *</label>
               <input className="w-full mt-1 px-3 py-2 rounded bg-gray-50" value={currentCgpa} onChange={(e) => setCurrentCgpa(e.target.value)} />
             </div>
-
             <div>
               <label className="text-sm text-gray-600">Admission Date *</label>
               <input type="date" className="w-full mt-1 px-3 py-2 rounded bg-gray-50" value={admissionDate} onChange={(e) => setAdmissionDate(e.target.value)} />
@@ -214,7 +219,6 @@ export default function MyProfilePage() {
               <label className="text-sm text-gray-600">Expected Graduation *</label>
               <input type="date" className="w-full mt-1 px-3 py-2 rounded bg-gray-50" value={expectedGraduation} onChange={(e) => setExpectedGraduation(e.target.value)} />
             </div>
-
             <div>
               <label className="text-sm text-gray-600">Previous Education Level *</label>
               <select className="w-full mt-1 px-3 py-2 rounded bg-gray-50" value={prevEducationLevel} onChange={(e) => setPrevEducationLevel(e.target.value)}>
@@ -226,7 +230,6 @@ export default function MyProfilePage() {
               <label className="text-sm text-gray-600">Previous Institution *</label>
               <input className="w-full mt-1 px-3 py-2 rounded bg-gray-50" value={prevInstitution} onChange={(e) => setPrevInstitution(e.target.value)} />
             </div>
-
             <div>
               <label className="text-sm text-gray-600">Previous Education Percentage *</label>
               <input className="w-full mt-1 px-3 py-2 rounded bg-gray-50" value={prevPercentage} onChange={(e) => setPrevPercentage(e.target.value)} />
@@ -236,14 +239,11 @@ export default function MyProfilePage() {
               <input className="w-full mt-1 px-3 py-2 rounded bg-gray-50" value={passingYear} onChange={(e) => setPassingYear(e.target.value)} />
             </div>
           </div>
-
           <div className="mt-6 text-right">
             <button onClick={saveAcademic} className="bg-indigo-600 text-white px-4 py-2 rounded">Save Academic Information</button>
           </div>
         </div>
       )}
-
-      {/* Portfolio and Privacy content removed */}
     </PageContainer>
   )
 }

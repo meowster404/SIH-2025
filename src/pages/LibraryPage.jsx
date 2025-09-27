@@ -3,7 +3,7 @@ import { useData } from '../context/DataContext'
 import PageContainer from '../components/PageContainer'
 
 export default function LibraryPage() {
-  const { library } = useData()
+  const { library, toggleBookAvailability } = useData()
   const [query, setQuery] = useState('')
 
   const results = (library || []).filter((b) => b.title.toLowerCase().includes(query.toLowerCase()) || b.author.toLowerCase().includes(query.toLowerCase()))
@@ -21,7 +21,14 @@ export default function LibraryPage() {
                 <div className="text-sm text-gray-500">{b.author}</div>
               </div>
               <div>
-                <button className={`px-3 py-1 rounded ${b.available ? 'bg-indigo-600 text-white' : 'bg-gray-200 text-gray-700'}`}>{b.available ? 'Borrow' : 'Unavailable'}</button>
+                <button
+                  onClick={() => toggleBookAvailability(b.id)}
+                  className={`px-3 py-1 rounded ${
+                    b.available ? 'bg-indigo-600 text-white' : 'bg-green-600 text-white'
+                  }`}
+                >
+                  {b.available ? 'Borrow' : 'Return'}
+                </button>
               </div>
             </div>
           ))}

@@ -1,20 +1,24 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useData } from '../context/DataContext'
 import PageContainer from '../components/PageContainer'
 
 export default function SubmissionPage() {
   const { assignments = [], submitAssignment } = useData()
-  const [fileName, setFileName] = useState('')
 
   const practicals = assignments.filter((a) => a.type === 'practical')
   const homework = assignments.filter((a) => a.type !== 'practical')
 
   function handleSubmit(id, e) {
     e.preventDefault()
-    if (!fileName) return alert('Please provide a file name (mock upload)')
-    submitAssignment(id, { fileName, submittedAt: new Date().toISOString() })
-    setFileName('')
-    alert('Submission recorded')
+    const fileInput = e.target.elements.fileInput;
+    const file = fileInput.files[0];
+    if (!file) {
+      alert('Please select a file to upload');
+      return;
+    }
+    submitAssignment(id, { fileName: file.name, submittedAt: new Date().toISOString() })
+    alert('Submission recorded for ' + file.name)
+    e.target.reset();
   }
 
   function renderList(list) {
@@ -28,7 +32,7 @@ export default function SubmissionPage() {
           <span className={`px-3 py-1 rounded-full text-sm ${a.submitted ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}`}>{a.submitted ? 'Submitted' : 'Pending'}</span>
           {!a.submitted && (
             <form onSubmit={(e) => handleSubmit(a.id, e)} className="flex items-center gap-2">
-              <input value={fileName} onChange={(e) => setFileName(e.target.value)} placeholder="file name (mock)" className="px-2 py-1 rounded bg-gray-50" />
+              <input type="file" name="fileInput" className="text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100" />
               <button type="submit" className="px-3 py-1 bg-indigo-600 text-white rounded">Upload</button>
             </form>
           )}

@@ -56,7 +56,10 @@ export default function ProjectsPage() {
                 <div className="font-medium">{p.title || 'Untitled Project'}</div>
                 <div className="text-sm text-gray-500">{p.startDate} — {p.endDate || 'Present'}</div>
                 <div className="mt-2 text-sm">{p.description}</div>
-                {p.url && <a className="text-indigo-600 text-sm mt-2 inline-block" href={p.url} target="_blank" rel="noreferrer">View Repository</a>}
+                <div className="mt-2 flex items-center gap-4">
+                  {p.repoUrl && <a className="text-indigo-600 text-sm inline-block" href={p.repoUrl} target="_blank" rel="noreferrer">View Repository</a>}
+                  {p.demoUrl && <a className="text-green-600 text-sm inline-block" href={p.demoUrl} target="_blank" rel="noreferrer">View Demo</a>}
+                </div>
               </div>
             ))}
           </div>

@@ -63,8 +63,15 @@ export function DataProvider({ children }) {
     }))
   }
 
+  function toggleBookAvailability(id) {
+    setState((prev) => ({
+      ...prev,
+      library: (prev.library || []).map((b) => (b.id === id ? { ...b, available: !b.available } : b)),
+    }))
+  }
+
   const activeStudent = state.students.find((s) => s.id === state.activeStudentId)
-  const value = { ...state, activeStudent, updateStudent, addCertificate, addProject, submitAssignment }
+  const value = { ...state, activeStudent, updateStudent, addCertificate, addProject, submitAssignment, toggleBookAvailability }
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>
 }
