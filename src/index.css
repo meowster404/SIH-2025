@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  @apply bg-gray-100 text-gray-800;
+}
+
+/* keep layout flexible: main will size with available space */
+.min-h-screen {
+  min-height: 100vh;
+}
+
+/* utility to hide scrollbars but keep scrolling functional */
+.no-scrollbar {
+  /* for modern browsers */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+.no-scrollbar::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
