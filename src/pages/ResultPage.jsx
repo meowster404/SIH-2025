@@ -1,10 +1,24 @@
 import React from 'react'
+import { useData } from '../context/DataContext'
+import PageContainer from '../components/PageContainer'
 
 export default function ResultPage() {
+  const { grades = [] } = useData()
+
   return (
-    <div className="p-8">
-      <h2 className="text-2xl font-semibold">Result</h2>
-      <p className="mt-4 text-gray-600">View your grades and transcripts.</p>
-    </div>
+    <PageContainer title="Results">
+      {grades.length === 0 ? (
+        <div className="text-gray-500">No grades available yet.</div>
+      ) : (
+        <div className="max-w-md space-y-2">
+          {grades.map((g, i) => (
+            <div key={`${g.course}-${i}`} className="bg-white p-3 rounded shadow-sm flex justify-between">
+              <div>{g.course}</div>
+              <div className="font-medium">{g.grade}</div>
+            </div>
+          ))}
+        </div>
+      )}
+    </PageContainer>
   )
 }

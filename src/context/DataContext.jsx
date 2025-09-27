@@ -28,8 +28,43 @@ export function DataProvider({ children }) {
     })
   }
 
+  function addCertificate(cert) {
+    setState((prev) => {
+      const certificates = [...(prev.certificates || []), cert]
+      const students = (prev.students || []).map((s) => {
+        if (s.id === prev.activeStudentId) {
+          const sCerts = [...((s.certificates && s.certificates) || []), cert]
+          return { ...s, certificates: sCerts }
+        }
+        return s
+      })
+
+      return { ...prev, certificates, students }
+    })
+  }
+
+  function addProject(project) {
+    setState((prev) => {
+      const students = prev.students.map((s) => {
+        if (s.id === prev.activeStudentId) {
+          const portfolio = { ...(s.portfolio || {}), projects: [...((s.portfolio && s.portfolio.projects) || []), project] }
+          return { ...s, portfolio }
+        }
+        return s
+      })
+      return { ...prev, students }
+    })
+  }
+
+  function submitAssignment(id, submission) {
+    setState((prev) => ({
+      ...prev,
+      assignments: (prev.assignments || []).map((a) => (a.id === id ? { ...a, submitted: true, submission } : a)),
+    }))
+  }
+
   const activeStudent = state.students.find((s) => s.id === state.activeStudentId)
-  const value = { ...state, activeStudent, updateStudent }
+  const value = { ...state, activeStudent, updateStudent, addCertificate, addProject, submitAssignment }
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>
 }

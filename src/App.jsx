@@ -23,7 +23,7 @@ import AskPortalPage from './pages/AskPortalPage'
 import ResumePage from './pages/ResumePage'
 import NotificationPage from './pages/NotificationPage'
 import SettingsPage from './pages/SettingsPage'
-import WorkInProgressPage from './pages/WorkInProgressPage'
+// ...existing imports
 import LogoutPage from './pages/LogoutPage'
 
 export default function App() {
@@ -40,21 +40,21 @@ export default function App() {
               <Route path="/" element={<StudentHome />} />
               <Route path="/dashboard" element={<DashboardPage />} />
               <Route path="/my-course" element={<MyCoursePage />} />
-              <Route path="/submission" element={<WorkInProgressPage feature="Submission" />} />
-              <Route path="/projects" element={<WorkInProgressPage feature="Projects" />} />
-              <Route path="/certificates" element={<WorkInProgressPage feature="Certificates" />} />
+              <Route path="/submission" element={<SubmissionPage />} />
+              <Route path="/projects" element={<ProjectsPage />} />
+              <Route path="/certificates" element={<CertificatesPage />} />
               <Route path="/attendance" element={<AttendancePage />} />
               <Route path="/class-schedule" element={<ClassSchedulePage />} />
               <Route path="/exam-schedule" element={<ExamSchedulePage />} />
               <Route path="/result" element={<ResultPage />} />
               <Route path="/my-profile" element={<MyProfilePage />} />
               <Route path="/portfolio" element={<PortfolioPage />} />
-              <Route path="/fee-payment" element={<WorkInProgressPage feature="Fee Payment" />} />
-              <Route path="/library" element={<WorkInProgressPage feature="Library" />} />
-              <Route path="/ask-portal" element={<WorkInProgressPage feature="Ask Portal" />} />
-              <Route path="/resume" element={<WorkInProgressPage feature="Resume" />} />
-              <Route path="/notification" element={<WorkInProgressPage feature="Notifications" />} />
-              <Route path="/settings" element={<WorkInProgressPage feature="Settings" />} />
+              <Route path="/fee-payment" element={<FeePaymentPage />} />
+              <Route path="/library" element={<LibraryPage />} />
+              <Route path="/ask-portal" element={<AskPortalPage />} />
+              <Route path="/resume" element={<ResumePage />} />
+              <Route path="/notification" element={<NotificationPage />} />
+              <Route path="/settings" element={<SettingsPage />} />
               <Route path="/logout" element={<LogoutPage />} />
             </Routes>
           </main>

@@ -1,10 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useData } from '../context/DataContext'
+import PageContainer from '../components/PageContainer'
 
 export default function LibraryPage() {
+  const { library } = useData()
+  const [query, setQuery] = useState('')
+
+  const results = (library || []).filter((b) => b.title.toLowerCase().includes(query.toLowerCase()) || b.author.toLowerCase().includes(query.toLowerCase()))
+
   return (
-    <div className="p-8">
-      <h2 className="text-2xl font-semibold">Library</h2>
-      <p className="mt-4 text-gray-600">Search books and view borrowing history.</p>
-    </div>
+    <PageContainer title="Library">
+      <div className="max-w-3xl">
+        <input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search by title or author" className="w-full p-2 border rounded mb-4" />
+
+        <div className="space-y-3">
+          {results.map((b) => (
+            <div key={b.id} className="bg-white p-3 rounded shadow-sm flex justify-between items-center">
+              <div>
+                <div className="font-medium">{b.title}</div>
+                <div className="text-sm text-gray-500">{b.author}</div>
+              </div>
+              <div>
+                <button className={`px-3 py-1 rounded ${b.available ? 'bg-indigo-600 text-white' : 'bg-gray-200 text-gray-700'}`}>{b.available ? 'Borrow' : 'Unavailable'}</button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </PageContainer>
   )
 }
