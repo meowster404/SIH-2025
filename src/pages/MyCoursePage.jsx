@@ -1,32 +1,67 @@
-import React from 'react';
-import PageContainer from '../components/PageContainer';
-import { useData } from '../context/DataContext';
+import React, { useState } from 'react'
+import { useData } from '../context/DataContext'
+import PageContainer from '../components/PageContainer'
 
 export default function MyCoursePage() {
-  const { activeStudent } = useData();
+  const data = useData()
+  const { activeStudent } = data
+  const courses = activeStudent?.courses || []
+  const allCourses = data?.courses || []
 
-  // Add this check to handle the loading state
-  if (!activeStudent || !activeStudent.courses) {
-    return (
-      <PageContainer title="My Courses">
-        <p>Loading courses...</p>
-      </PageContainer>
-    );
+  // normalize semester string like '4th' or 'Semester 8' to number
+  function semesterNumber(sem) {
+    if (!sem) return null
+    const m = String(sem).match(/(\d+)/)
+    return m ? Number(m[1]) : null
+  }
+
+  const studentSemNum = semesterNumber(activeStudent?.semester)
+  const fallbackCourses = studentSemNum ? allCourses.filter((c) => Number(c.semester) === studentSemNum) : []
+  const displayCourses = courses.length > 0 ? courses : fallbackCourses
+  const [openIndex, setOpenIndex] = useState(null)
+
+  function toggle(i) {
+    setOpenIndex((prev) => (prev === i ? null : i))
   }
 
   return (
-    <PageContainer title="My Courses">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {activeStudent.courses.map(course => (
-          <div key={course.id} className="bg-white p-4 rounded shadow-sm">
-            <h3 className="text-lg font-semibold">{course.name}</h3>
-            <div className="w-full bg-gray-200 rounded-full h-2.5 mt-2">
-              <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: `${course.progress}%` }}></div>
+    <PageContainer title="Current Semester Courses">
+      <p className="text-sm text-gray-600 mb-6">Semester: {activeStudent?.semester || 'N/A'}</p>
+
+      <div className="space-y-4">
+        {displayCourses.map((c, i) => {
+          const detail = allCourses.find((x) => x.code === c.code) || {}
+          return (
+            <div key={c.code} className="bg-white border rounded-lg shadow-sm overflow-hidden">
+              <button
+                className="w-full text-left p-4 flex items-center justify-between"
+                onClick={() => toggle(i)}
+                aria-expanded={openIndex === i}
+              >
+                <div>
+                  <div className="flex items-center gap-3">
+                    <div className="text-sm font-medium text-gray-800">{c.code} - {detail.title || c.name}</div>
+                    <div className="text-xs text-gray-500">{detail.instructor || c.instructor}</div>
+                  </div>
+                  <div className="text-xs text-gray-500 mt-1">Click to view notes</div>
+                </div>
+                <div className="text-indigo-600 font-medium">{openIndex === i ? 'Hide' : 'Show'}</div>
+              </button>
+
+              {openIndex === i && (
+                <div className="px-4 pb-4 pt-0 border-t bg-gray-50">
+                  <div className="text-sm text-gray-700 p-3 bg-white rounded border">{c.notes}</div>
+                  {detail.description && <div className="mt-2 text-sm text-gray-600">{detail.description}</div>}
+                </div>
+              )}
             </div>
-            <p className="text-right text-sm text-gray-500 mt-1">{course.progress}% Complete</p>
-          </div>
-        ))}
+          )
+        })}
+
+        {courses.length === 0 && (
+          <div className="text-gray-500">No courses found for the current semester.</div>
+        )}
       </div>
     </PageContainer>
-  );
+  )
 }
