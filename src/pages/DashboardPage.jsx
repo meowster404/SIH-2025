@@ -1,6 +1,6 @@
-import React from 'react'
-import PageContainer from '../components/PageContainer'
-import { useData } from '../context/DataContext'
+import PageContainer from '../components/PageContainer';
+import StatCard from '../components/dashboard/StatCard';
+import { useData } from '../context/DataContext';
 
 export default function DashboardPage() {
   const { activeStudent, students = [], assignments = [], projects = [] } = useData()
@@ -12,27 +12,11 @@ export default function DashboardPage() {
 
   return (
     <PageContainer title="Dashboard">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <div className="bg-white p-4 rounded shadow-sm">
-          <div className="text-sm text-gray-500">Active Student</div>
-          <div className="text-xl font-semibold">{activeStudent?.name || '—'}</div>
-        </div>
-
-        <div className="bg-white p-4 rounded shadow-sm">
-          <div className="text-sm text-gray-500">Students</div>
-          <div className="text-xl font-semibold">{totalStudents}</div>
-        </div>
-
-        <div className="bg-white p-4 rounded shadow-sm">
-          <div className="text-sm text-gray-500">Pending Assignments</div>
-          <div className="text-xl font-semibold">{pendingAssignments}</div>
-        </div>
-
-        <div className="bg-white p-4 rounded shadow-sm">
-          <div className="text-sm text-gray-500">Your Projects</div>
-          <div className="text-xl font-semibold">{studentProjects}</div>
-          <div className="text-sm text-gray-500 mt-1">Attendance: {attendance}%</div>
-        </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <StatCard title="Active Student" value={activeStudent?.name || '—'} />
+        <StatCard title="Students" value={totalStudents} />
+        <StatCard title="Pending Assignments" value={pendingAssignments} />
+        <StatCard title="Your Projects" value={studentProjects} note={`Attendance: ${attendance}%`} />
       </div>
     </PageContainer>
   )

@@ -6,13 +6,13 @@ export default function StatCard({ title, value, note, delta }) {
   const isUp = hasDelta && delta > 0
 
   return (
-  <div className="bg-white/80 rounded-2xl p-4 shadow-md min-w-[10rem] h-36 flex flex-col justify-between">
+  <div className="bg-white/80 rounded-2xl p-3 shadow-md min-w-[8rem] h-28 flex flex-col justify-between">
       <div>
         <div className="text-sm text-gray-500">{title}</div>
       </div>
 
       <div className="flex items-center justify-between">
-        <div className="text-3xl font-extrabold">{value}</div>
+        <div className="text-2xl font-extrabold">{value}</div>
 
         {hasDelta && (
           <div className={`flex items-center text-sm font-medium ${isUp ? 'text-green-600' : 'text-red-600'}`}>

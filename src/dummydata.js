@@ -19,3 +19,58 @@ export const institutes = [
   { id: 2, name: 'National College of Engineering', city: 'Mumbai' },
   { id: 3, name: 'State University', city: 'Bengaluru' }
 ]
+
+export const courses = [
+  { code: 'CS101', name: 'Introduction to Computer Science', instructor: 'Dr. Nitin Gupta', description: 'Fundamentals of programming and computer science.', semester: 1 },
+  { code: 'MA101', name: 'Calculus', instructor: 'Prof. Lata Iyer', description: 'Limits, derivatives, and integrals.', semester: 1 },
+  { code: 'PY101', name: 'Physics for Engineers', instructor: 'Dr. Omar Khan', description: 'Mechanics, electricity, and magnetism.', semester: 2 },
+  { code: 'CH101', name: 'Chemistry for Engineers', instructor: 'Dr. Priya Das', description: 'Basic concepts of chemistry.', semester: 2 },
+  { code: 'CS201', name: 'Data Structures and Algorithms', instructor: 'Dr. Nitin Gupta', description: 'Arrays, linked lists, trees, graphs, and algorithms.', semester: 3 },
+  { code: 'CS202', name: 'Object Oriented Programming', instructor: 'Dr. Nitin Gupta', description: 'Classes, objects, inheritance, and polymorphism.', semester: 3 },
+  { code: 'CS301', name: 'Database Management Systems', instructor: 'Dr. Nitin Gupta', description: 'SQL, relational algebra, and database design.', semester: 4 },
+  { code: 'CS302', name: 'Operating Systems', instructor: 'Dr. Nitin Gupta', description: 'Processes, threads, memory management, and file systems.', semester: 4 },
+]
+
+export const assignments = [
+  { id: 1, title: 'Assignment 1', course: 'CS101', due: '2025-10-15', submitted: true, type: 'assignment' },
+  { id: 2, title: 'Practical 1', course: 'CS101', due: '2025-10-20', submitted: false, type: 'practical' },
+  { id: 3, title: 'Assignment 2', course: 'MA101', due: '2025-10-25', submitted: false, type: 'assignment' },
+  { id: 4, title: 'Practical 2', course: 'MA101', due: '2025-10-30', submitted: true, type: 'practical' },
+]
+
+export const projects = [
+  { title: 'Student Portal', startDate: '2025-09-01', endDate: '2025-12-31', description: 'A web application for students to manage their academic information.', repoUrl: 'https://github.com/user/student-portal' },
+  { title: 'E-commerce Website', startDate: '2025-01-01', endDate: '2025-04-30', description: 'An online store for selling products.', repoUrl: 'https://github.com/user/ecommerce-website' },
+]
+
+export const certificates = [
+  { id: 1, title: 'React for Beginners', date: '2025-06-30', category: 'course', fileName: 'react-for-beginners.pdf' },
+  { id: 2, title: 'Hackathon Winner', date: '2025-08-15', category: 'competition', fileName: 'hackathon-winner.pdf' },
+]
+
+export const grades = [
+  { course: 'CS101', grade: 'A' },
+  { course: 'MA101', grade: 'B' },
+]
+
+export const classSchedule = [
+  { day: 'Monday', time: '10:00 AM - 11:00 AM', course: 'CS101' },
+  { day: 'Tuesday', time: '11:00 AM - 12:00 PM', course: 'MA101' },
+  { day: 'Wednesday', time: '10:00 AM - 11:00 AM', course: 'CS101' },
+  { day: 'Thursday', time: '11:00 AM - 12:00 PM', course: 'MA101' },
+  { day: 'Friday', time: '10:00 AM - 11:00 AM', course: 'CS101' },
+]
+
+export const examSchedule = [
+  { course: 'CS101', date: '2025-12-15', venue: 'Room 101' },
+  { course: 'MA101', date: '2025-12-20', venue: 'Room 102' },
+]
+
+export const announcements = [
+  { id: 1, title: 'Mid-term exams', course: 'General', date: '2025-10-01', description: 'The mid-term exams will be held from 15th to 20th of October.' },
+  { id: 2, title: 'Guest lecture', course: 'CS101', date: '2025-10-05', description: 'A guest lecture on AI will be held on 10th of October.' },
+]
+
+export const facultyOnLeave = [
+  { name: 'Dr. Priya Das', department: 'Chemistry' },
+]

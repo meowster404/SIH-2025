@@ -13,6 +13,15 @@ export function DataProvider({ children }) {
     }
   })
 
+  const [theme, setTheme] = useState(() => {
+    try {
+      const raw = localStorage.getItem('theme')
+      return raw ? raw : 'light'
+    } catch (e) {
+      return 'light'
+    }
+  })
+
   useEffect(() => {
     try {
       localStorage.setItem('app_data', JSON.stringify(state))
@@ -20,6 +29,19 @@ export function DataProvider({ children }) {
       // ignore
     }
   }, [state])
+
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+    localStorage.setItem('theme', theme)
+  }, [theme])
+
+  function toggleTheme() {
+    setTheme(theme === 'light' ? 'dark' : 'light')
+  }
 
   function updateStudent(patch) {
     setState((prev) => {
@@ -71,7 +93,7 @@ export function DataProvider({ children }) {
   }
 
   const activeStudent = state.students.find((s) => s.id === state.activeStudentId)
-  const value = { ...state, activeStudent, updateStudent, addCertificate, addProject, submitAssignment, toggleBookAvailability }
+  const value = { ...state, activeStudent, updateStudent, addCertificate, addProject, submitAssignment, toggleBookAvailability, theme, toggleTheme }
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>
 }

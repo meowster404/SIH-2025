@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useData } from '../context/DataContext'
+import { FiMenu } from 'react-icons/fi'
 
 const routeTitles = {
   '/': 'Dashboard',
@@ -23,7 +24,7 @@ const routeTitles = {
   '/logout': 'Logout',
 }
 
-export default function Header() {
+export default function Header({ setSidebarOpen }) {
   const data = useData()
   const student = data?.activeStudent
   const location = useLocation()
@@ -35,6 +36,9 @@ export default function Header() {
     <header className="bg-gray-50 border-b">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-4">
+          <button className="sm:hidden" onClick={() => setSidebarOpen(true)}>
+            <FiMenu />
+          </button>
           <div className="text-xl font-semibold">{title}</div>
         </div>
 

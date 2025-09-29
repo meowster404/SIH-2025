@@ -72,7 +72,7 @@ export default function ChartCard({ data = [], title = 'CGPA Per Semester' }) {
     <div className="bg-white/90 rounded-2xl p-6 shadow-md h-full">
       <div className="text-sm text-gray-500 mb-2">Statistics</div>
       <div className="font-semibold text-lg mb-3">{title}</div>
-      <div className="w-full h-64">
+      <div className="w-full h-48 md:h-64">
         <Line data={chartData} options={options} />
       </div>
     </div>

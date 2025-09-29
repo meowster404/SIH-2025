@@ -137,4 +137,6 @@ export default {
   site,
   activeStudentId,
   announcements,
+  facultyOnLeave,
+  projects
 }
