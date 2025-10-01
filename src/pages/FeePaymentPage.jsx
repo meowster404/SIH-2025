@@ -75,7 +75,7 @@ const PayNow = ({ onPay }) => {
 
 export default function FeePaymentPage() {
   const { fees, activeStudent } = useData();
-
+  
   // Dummy handler for payment
   const handlePayment = (amount) => {
     console.log(`Payment of ₹${amount} initiated.`);
@@ -88,9 +88,9 @@ export default function FeePaymentPage() {
     return {
       labels: ['Fees Paid', 'Balance Due'],
       datasets: [
-        {
+        { 
           label: 'Fee Status',
-          data: [fees.paid || 0, fees.due || 0],
+          data: [fees?.paid || 0, fees?.due || 0],
           backgroundColor: [
             'rgba(79, 70, 229, 0.8)', // Indigo for paid
             'rgba(239, 68, 68, 0.8)', // Red for due
@@ -137,9 +137,9 @@ export default function FeePaymentPage() {
       <div className="space-y-8">
         {/* Top section with StatCards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <StatCard title="Total Fees" value={`₹${fees.total?.toLocaleString() || 'N/A'}`} />
-          <StatCard title="Fees Paid" value={`₹${fees.paid?.toLocaleString() || 'N/A'}`} />
-          <StatCard title="Balance Due" value={`₹${fees.due?.toLocaleString() || 'N/A'}`} note="Due by next semester" />
+          {fees && <StatCard title="Total Fees" value={`₹${fees?.total?.toLocaleString() || 'N/A'}`} />}
+          {fees && <StatCard title="Fees Paid" value={`₹${fees?.paid?.toLocaleString() || 'N/A'}`} />}
+          {fees && <StatCard title="Balance Due" value={`₹${fees?.due?.toLocaleString() || 'N/A'}`} note="Due by next semester" />}
         </div>
 
         {/* Middle section with Graph and Payment History */}
